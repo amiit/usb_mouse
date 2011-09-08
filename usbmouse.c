@@ -154,12 +154,12 @@ static int usb_mouse_probe(struct usb_interface *intf, const struct usb_device_i
 	maxp = usb_maxpacket(dev, pipe, usb_pipeout(pipe));
 
 	/* 创建input设备 */
-	mouse = kzalloc(sizeof(struct usb_mouse), GFP_KERNEL);
+	mouse = kzalloc(sizeof(struct usb_mouse), GFP_KERNEL); //分配内存并将分配的空间初始化为0
 	input_dev = input_allocate_device();
 	if (!mouse || !input_dev)
 		goto fail1;
 
-   /* 申请内存空间用于数据传输，data 为指向该空间的地址*/
+   	/* 申请内存空间用于数据传输，data 为指向该空间的地址*/
 	mouse->data = usb_buffer_alloc(dev, 8, GFP_ATOMIC, &mouse->data_dma);
 	if (!mouse->data)
 		goto fail1;
